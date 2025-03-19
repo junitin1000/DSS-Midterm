@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using ZstdSharp.Unsafe;
 
 class Administrator : User{
 
@@ -26,7 +27,7 @@ class Administrator : User{
         while(loggedIn){
             Console.WriteLine("\nAdministrator Menu:");
             Console.WriteLine("1----Create New Account");
-            Console.WriteLine("2----Delete Exixting Account");
+            Console.WriteLine("2----Delete Existing Account");
             Console.WriteLine("3----Update Account Information");
             Console.WriteLine("4----Search for Account");
             Console.WriteLine("6----Exit");
@@ -108,7 +109,7 @@ class Administrator : User{
             Console.Write("Status: ");
             newStatus = Console.ReadLine();
             while (newStatus != "Active" && newStatus != "Disabled"){
-                Console.WriteLine("Status must be either: \"Active\" or \"Disabled");
+                Console.Write("Status must be either: \"Active\" or \"Disabled\"");
                 newStatus = Console.ReadLine();
             }
 
@@ -139,7 +140,30 @@ class Administrator : User{
     }
 
     public void DeleteAccount(){
-
+        Console.WriteLine("Enter the account number to which you want to delete: ");
+        int potentialAccountNumber;
+        if (!Int32.TryParse(Console.ReadLine(), out potentialAccountNumber)){
+            Console.WriteLine("Invalid input. Please enter a number.");
+        }
+        string holderName = Database.GetName(potentialAccountNumber);
+        if (holderName == ""){
+            Console.WriteLine("Could not find account...");
+        }
+        else{
+            Console.Write("You wish to delete the account held by {0}. If this information is correct, please re-enter the account number:", holderName);
+            int secondAccountNumber;
+            if (!Int32.TryParse(Console.ReadLine(), out secondAccountNumber)){
+                Console.WriteLine("Invalid input. Please enter a number.");
+            }
+            else{
+                if (potentialAccountNumber == secondAccountNumber){
+                    Database.DeleteAccount(potentialAccountNumber);
+                }
+                else{
+                    Console.WriteLine("The numbers were not the same. Please try again.");
+                }
+            }
+        }
     }
 
     public void UpdateAccount(){

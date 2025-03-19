@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using System;
+using System.Net.Http.Headers;
 
 class Database
 {
@@ -173,6 +174,89 @@ class Database
             }
         }
         return balance;
+    }
+
+    public Boolean AccountExists(int accountNumber){
+        bool ret = false;
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "SELECT * FROM user WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+       
+
+                     // Execute the query
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value){
+                        ret = true;
+                    }    
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+        return ret;
+    }
+
+    public string GetName(int accountNumber){
+        string name = "";
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "SELECT Holder FROM user WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+       
+
+                     // Execute the query
+                    object result = cmd.ExecuteScalar();
+                    if (result == null || result == DBNull.Value){
+                        Console.WriteLine("No balance found for this account.");                        
+                    }
+                    else{
+                        name = result.ToString();
+                    }       
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+        return name;
+    }
+    public void DeleteAccount(int accountNumber){
+        using (MySqlConnection connection = GetConnection()){
+            try
+            {
+                connection.Open();
+
+                string query = "DELETE FROM user WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+                    // ExecuteNonQuery returns the number of affected rows
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Console.WriteLine("Account deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No account found with the specified account number.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting account: {ex.Message}");
+            }
+        }
     }
 
 }
