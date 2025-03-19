@@ -13,5 +13,9 @@ class Program
         LoginHandler loginHandler = new LoginHandler();
 
         User? loggingOnUser = loginHandler.Login();
+        
+        if (loggingOnUser is not null){
+            loggingOnUser.DisplayMainMenu();
+        }
     }
 }

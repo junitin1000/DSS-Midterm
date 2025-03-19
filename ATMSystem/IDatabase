@@ -1,0 +1,3 @@
+public interface IDatabase{
+    User GetUserFromLonginInfo(string login, int pin);
+}

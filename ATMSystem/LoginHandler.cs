@@ -2,14 +2,15 @@ using System;
 using System.Text.RegularExpressions;
 
 public class LoginHandler{
+    private readonly Database database = new Database();
+
     protected string login;
     protected string pin;
-
-
 
     public User? Login(){
 
         bool loggedIn = false;
+        User? user = null;
 
         while(!loggedIn){
             Console.Write("Enter Login: ");
@@ -33,11 +34,19 @@ public class LoginHandler{
                     pin = input;
                     Console.WriteLine("You Entered: Login: {0}\t Pin: {1}", login, pin);
                     //Check database for user with associated password
-                    
+                    user = database.GetUserFromLoginInfo(login, pin);
+
+                    if (user is null){
+                        Console.WriteLine("Invalid login or PIN. Please try again.");
+                    }
+                    else{
+                        Console.WriteLine($"Login successful! Wecome {login}.");
+                        loggedIn = true;
+                    }
 
                 }
             }
         }
-        return null;
+        return user;
     }
 }

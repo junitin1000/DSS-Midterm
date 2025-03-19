@@ -1,5 +1,5 @@
-using System;
 using MySql.Data.MySqlClient;
+using System;
 
 class Database
 {
@@ -24,7 +24,7 @@ class Database
         }
     }
 
-    public User GetUserFromLonginInfo(string login, int pin){
+    public User GetUserFromLoginInfo(string login, string pin){
         User user = null;
 
         using (MySqlConnection connection = GetConnection()){
@@ -35,6 +35,24 @@ class Database
                 using (MySqlCommand cmd = new MySqlCommand(query, connection)){
                     cmd.Parameters.AddWithValue("@login", login);
                     cmd.Parameters.AddWithValue("@pin", pin);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader()){
+                        if (reader.Read()){
+                            int accountNumber = Convert.ToInt32(reader["AccountNumber"]);
+                            string type = reader["Type"].ToString();
+                            string holderName = reader["Holder"].ToString();
+                            decimal balance = Convert.ToDecimal(reader["Balance"]);
+                            string status = reader["Status"].ToString();
+
+                            if (type == "Customer"){
+                                user = new Customer(accountNumber, holderName, balance, status, login, pin);
+                            }
+                            else if (type == "Administrator"){
+                                user = new Administrator(accountNumber, holderName, status, login, pin);
+                            }
+
+                        }
+                    }                    
                 }
             }
             catch (Exception ex){

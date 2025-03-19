@@ -1,4 +1,25 @@
+using System.Dynamic;
+using Org.BouncyCastle.Asn1.X509;
+
 class Customer : User{
+
+    private int AccountNumber {get;}
+    private decimal Balance {get;}
+    private string HolderName {get;}
+    private string Status {get;}
+    private string Login {get;}
+    private string Pin {get;}
+
+    public Customer(int accountNumber, string holder, decimal balance, string status, string login, string pin)
+        : base(accountNumber){
+            AccountNumber = accountNumber;
+            Balance = balance;
+            HolderName = holder;
+            Balance = balance;
+            Status = status;
+            Login = login;
+            Pin = pin;
+        }
     public override void DisplayMainMenu(){
 
         while(true){
