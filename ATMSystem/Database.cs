@@ -45,7 +45,7 @@ class Database
                             string status = reader["Status"].ToString();
 
                             if (type == "Customer"){
-                                user = new Customer(accountNumber, holderName, balance, status, login, pin);
+                                user = new Customer(accountNumber, holderName, balance, status, login, pin, this);
                             }
                             else if (type == "Administrator"){
                                 user = new Administrator(accountNumber, holderName, status, login, pin, this);
@@ -91,6 +91,88 @@ class Database
                 Console.WriteLine($"Error connecting to database: {ex.Message}");
             }
         }
+    }
+
+    public void WithdrawAmount(int accountNumber, decimal balance, decimal withdrawAmount){
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "UPDATE user SET Balance = @updatedBalance WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@updatedBalance", balance-withdrawAmount);
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+       
+
+                     // Execute the query
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0){
+                        Console.WriteLine("Balance Updated!");
+                    }
+                    else{
+                        Console.WriteLine("Failed to update balance.");
+                    }           
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+    }
+
+    public void DepositAmount(int accountNumber, decimal balance, decimal withdrawAmount){
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "UPDATE user SET Balance = @updatedBalance WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@updatedBalance", balance+withdrawAmount);
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+       
+
+                     // Execute the query
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0){
+                        Console.WriteLine("Balance Updated!");
+                    }
+                    else{
+                        Console.WriteLine("Failed to update balance.");
+                    }           
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+    }
+
+    public decimal GetBalance(int accountNumber){
+        decimal balance = -1;
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "SELECT Balance FROM user WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+       
+
+                     // Execute the query
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value){
+                        balance = Convert.ToDecimal(result);
+                    }
+                    else{
+                        Console.WriteLine("No balance found for this account.");
+                    }       
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+        return balance;
     }
 
 }

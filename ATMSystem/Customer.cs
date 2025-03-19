@@ -4,7 +4,7 @@ using Org.BouncyCastle.Asn1.X509;
 class Customer : User{
 
     private int AccountNumber {get;}
-    private decimal Balance {get;}
+    private decimal Balance {get; set;}
     private string HolderName {get;}
     private string Status {get;}
     private string Login {get;}
@@ -23,8 +23,10 @@ class Customer : User{
             Database = database;
         }
     public override void DisplayMainMenu(){
+        
+        bool loggedIn = true;
 
-        while(true){
+        while(loggedIn){
             Console.WriteLine("\nCustomer Menu:");
             Console.WriteLine("1----Withdraw Cash");
             Console.WriteLine("2----Deposit Cash");
@@ -51,6 +53,8 @@ class Customer : User{
                         break;
                     
                     case 4:
+                        loggedIn = false;
+                        Console.WriteLine("Have a nice day! Goodbye!");
                         break;
 
                 }
@@ -62,15 +66,47 @@ class Customer : User{
     }
 
     public void Withdraw(){
+        decimal withdrawAmount;
+        Console.Write("Enter the withdraw amount: ");
+        if (!decimal.TryParse(Console.ReadLine(), out withdrawAmount)){
+                Console.WriteLine("Invalid balance. Please enter a valid number.");
+            }
+        if (withdrawAmount > Balance){
+            Console.WriteLine("Cannot withdraw that amount. Enter an amount less than or equal to total balance.");
+        }
+        Database.WithdrawAmount(AccountNumber, Balance, withdrawAmount);
+        Balance -= withdrawAmount;
+
+        Console.WriteLine("Cash Successfully Withdrawn");
+        Console.WriteLine("Account #{0}", AccountNumber);
+        Console.WriteLine("Date: {0}", DateTime.Today.ToString("d"));
+        Console.WriteLine("Withdrawn: {0}", withdrawAmount);
+        Console.WriteLine("Balance: {0}", Database.GetBalance(AccountNumber));
 
     }
 
     public void Deposit(){
+        decimal depositAmount;
+        Console.Write("Enter the deposit amount: ");
+        if (!decimal.TryParse(Console.ReadLine(), out depositAmount)){
+                Console.WriteLine("Invalid balance. Please enter a valid number.");
+            }
+        Database.DepositAmount(AccountNumber, Balance, depositAmount);
+        Balance += depositAmount;
+
+        Console.WriteLine("Cash Deposited Successfully");
+        Console.WriteLine("Account #{0}", AccountNumber);
+        Console.WriteLine("Date: {0}", DateTime.Today.ToString("d"));
+        Console.WriteLine("Deposited: {0}", depositAmount);
+        Console.WriteLine("Balance: {0}", Database.GetBalance(AccountNumber));
 
     }
 
     public void DisplayBalance(){
-
+        Console.WriteLine("Account #{0}", AccountNumber);
+        Console.WriteLine("Date: {0}", DateTime.Today.ToString("d"));
+        Console.WriteLine("Balance: {0}", Database.GetBalance(AccountNumber));
+        
     }
 
 }
