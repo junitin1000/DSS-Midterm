@@ -48,7 +48,7 @@ class Database
                                 user = new Customer(accountNumber, holderName, balance, status, login, pin);
                             }
                             else if (type == "Administrator"){
-                                user = new Administrator(accountNumber, holderName, status, login, pin);
+                                user = new Administrator(accountNumber, holderName, status, login, pin, this);
                             }
 
                         }
@@ -62,4 +62,35 @@ class Database
 
         return user;
     }
+
+    public void AddUser(string login, string pin, string holder, decimal balance, string status){
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "INSERT INTO user (Type, Holder, Balance, Status, Login, Pin) VALUES (@type, @holder, @balance, @status, @login, @pin)";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@type", "Customer");
+                    cmd.Parameters.AddWithValue("@holder", holder);
+                    cmd.Parameters.AddWithValue("@balance", balance);
+                    cmd.Parameters.AddWithValue("@status", status);
+                    cmd.Parameters.AddWithValue("@login", login);
+                    cmd.Parameters.AddWithValue("@pin", pin);         
+
+                     // Execute the query
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0){
+                        Console.WriteLine("User added successfully!");
+                    }
+                    else{
+                        Console.WriteLine("Failed to add user.");
+                    }           
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+    }
+
 }

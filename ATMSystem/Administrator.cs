@@ -8,14 +8,16 @@ class Administrator : User{
     private string Status {get;}
     private string Login {get;}
     private string Pin {get;}
+    private Database Database;
 
-    public Administrator(int accountNumber, string holder, string status, string login, string pin)
+    public Administrator(int accountNumber, string holder, string status, string login, string pin, Database database)
         : base(accountNumber){
             AccountNumber = accountNumber;
             HolderName = holder;
             Status = status;
             Login = login;
             Pin = pin;
+            Database = database;
         }
     public override void DisplayMainMenu(){
         
@@ -98,30 +100,39 @@ class Administrator : User{
             newHolderName = Console.ReadLine();
 
             Console.Write("Starting Balance: ");
-            newBalance = decimal.Parse(Console.ReadLine());
+            if (!decimal.TryParse(Console.ReadLine(), out newBalance)){
+                Console.WriteLine("Invalid balance. Please enter a valid number.");
+                continue;
+            }
 
             Console.Write("Status: ");
             newStatus = Console.ReadLine();
+            while (newStatus != "Active" && newStatus != "Disabled"){
+                Console.WriteLine("Status must be either: \"Active\" or \"Disabled");
+                newStatus = Console.ReadLine();
+            }
 
             Console.WriteLine("You Entered:\n Login: {0}\n PIN: {1}\n Holder's Name: {2}\n Balance: {3}\n Status: {4}\n Is this correct? (y/n)", newLogin, newPin, newHolderName, newBalance, newStatus);
-            string confirm = "";
-            do
-            {
-                confirm = Console.ReadLine();
-                switch (confirm){
-                    case "y":
-                        correctNewInformation = true;
-                        break;
-                    
-                    case "n":
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid. Enter 'y' or 'n'.");
-                        break;
+            
+            bool confirmedYN = false;
+            while (!confirmedYN){
+                string confirm = Console.ReadLine()?.ToLower();
+                if (confirm == "y")
+                {
+                    correctNewInformation = true;
+                    confirmedYN = true;
+                    Database.AddUser(newLogin, newPin, newHolderName, newBalance, newStatus);
 
                 }
-            }while (confirm != "y" && confirm != "n");
+                else if (confirm == "n"){
+                    confirmedYN = true;
+                    Console.WriteLine("Re-enter account details...");
+                }
+                else{
+                    Console.WriteLine("Invalid input. Please enter 'y' or 'n'.");
+                }
+            }
+               
         }
 
 

@@ -9,8 +9,9 @@ class Customer : User{
     private string Status {get;}
     private string Login {get;}
     private string Pin {get;}
+    private Database Database;
 
-    public Customer(int accountNumber, string holder, decimal balance, string status, string login, string pin)
+    public Customer(int accountNumber, string holder, decimal balance, string status, string login, string pin, Database database)
         : base(accountNumber){
             AccountNumber = accountNumber;
             Balance = balance;
@@ -19,6 +20,7 @@ class Customer : User{
             Status = status;
             Login = login;
             Pin = pin;
+            Database = database;
         }
     public override void DisplayMainMenu(){
 
