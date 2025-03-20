@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 
 public class LoginHandler{
     private readonly Database database = new Database();
-
     protected string login;
     protected string pin;
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OHgGnSrHmUk=",
+  "dgSpecHash": "WMq84bXj070=",
   "success": true,
-  "projectFilePath": "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
+  "projectFilePath": "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",

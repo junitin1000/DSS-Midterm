@@ -1,14 +1,6 @@
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using ZstdSharp.Unsafe;
 
 class Administrator : User{
-
-    private int AccountNumber {get;}
-    private string HolderName {get;}
-    private string Status {get;}
-    private string Login {get;}
-    private string Pin {get;}
     private Database Database;
 
     public Administrator(int accountNumber, string holder, string status, string login, string pin, Database database)
@@ -36,6 +28,9 @@ class Administrator : User{
             int choice;
             if(!Int32.TryParse(Console.ReadLine(), out choice)){
                 Console.WriteLine("Could not recognize command. Please Try again...");
+            }
+            else if(choice < 1 || choice > 6){
+                Console.WriteLine("Please enter a number between 1 and 6.");
             }
             else{
                 switch(choice){
@@ -76,11 +71,11 @@ class Administrator : User{
 
         bool correctNewInformation = false;
         while (!correctNewInformation){
-            string newLogin = "";
+            string newLogin;
             string newPin = "";
-            string newHolderName = "";
-            decimal newBalance = -1;
-            string newStatus = "";
+            string newHolderName;
+            decimal newBalance;
+            string newStatus;
 
             Console.Write("Login: ");
             newLogin = Console.ReadLine();
@@ -109,7 +104,7 @@ class Administrator : User{
             Console.Write("Status: ");
             newStatus = Console.ReadLine();
             while (newStatus != "Active" && newStatus != "Disabled"){
-                Console.Write("Status must be either: \"Active\" or \"Disabled\"");
+                Console.WriteLine("Status must be either: \"Active\" or \"Disabled\"");
                 newStatus = Console.ReadLine();
             }
 
@@ -122,8 +117,8 @@ class Administrator : User{
                 {
                     correctNewInformation = true;
                     confirmedYN = true;
-                    Database.AddUser(newLogin, newPin, newHolderName, newBalance, newStatus);
-
+                    int newUsersAccountNumber = Database.AddUser(newLogin, newPin, newHolderName, newBalance, newStatus);
+                    Console.WriteLine("The new account number is: {0}", newUsersAccountNumber);
                 }
                 else if (confirm == "n"){
                     confirmedYN = true;
@@ -167,10 +162,71 @@ class Administrator : User{
     }
 
     public void UpdateAccount(){
+        Console.WriteLine("Enter the Account Number: ");
+        int accountNum;
+        if (!Int32.TryParse(Console.ReadLine(), out accountNum)){
+                Console.WriteLine("Invalid input. Please enter a number.");
+            }
+        object[] info = Database.GetAccountInfoFromNumber(accountNum);
+        if (info is null){
+            Console.WriteLine("Count not find information linked to that account number.");
+        }
+        else{
+            Console.WriteLine("Account # {0}", info[0]);
+            Console.Write("Holder: ");
+            string newHolderName = Console.ReadLine();
+
+            Console.WriteLine("Balance: {0}", info[3]);
+
+            Console.Write("Status: ");
+            string newStatus = Console.ReadLine();
+            while (newStatus != "Active" && newStatus != "Disabled"){
+                Console.WriteLine("Status must be either: \"Active\" or \"Disabled\"");
+                newStatus = Console.ReadLine();
+            }
+
+            Console.Write("Login: ");
+            string newLogin = Console.ReadLine();
+            
+            string newPin = "";
+            bool validPin = false;
+            while (!validPin){
+                Console.Write("Pin Code: ");
+                newPin = Console.ReadLine();
+                if (Regex.IsMatch(newPin, @"^\d{5}$")){
+                    validPin = true;
+
+                }
+                else{
+                    Console.WriteLine("Invalid Pin. Please enter a 5 digit pin code...");
+                }
+            }
+
+            Database.UpdateAccountInfo(accountNum, newHolderName, newStatus, newLogin, newPin);
+        }
+
 
     }
 
     public void SearchAccount(){
+        Console.WriteLine("Enter the Account Number: ");
+        int accountNum;
+        if (!Int32.TryParse(Console.ReadLine(), out accountNum)){
+                Console.WriteLine("Invalid input. Please enter a number.");
+            }
+        object[] info = Database.GetAccountInfoFromNumber(accountNum);
+        if (info is null){
+            Console.WriteLine("Could not find information linked to that account number.");
+        }
+        else{
+            Console.WriteLine("Account # {0}", info[0]);
+            Console.WriteLine("Holder: {0}", info[2]);
+            Console.WriteLine("Balance: {0}", info[3]);
+            Console.WriteLine("Status: {0}", info[4]);
+            Console.WriteLine("Login: {0}", info[5]);
+            Console.WriteLine("Pin Code: {0}", info[6]);
+        }
 
     }
+
 }

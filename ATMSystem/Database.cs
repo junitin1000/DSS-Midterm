@@ -1,6 +1,4 @@
 using MySql.Data.MySqlClient;
-using System;
-using System.Net.Http.Headers;
 
 class Database
 {
@@ -64,7 +62,8 @@ class Database
         return user;
     }
 
-    public void AddUser(string login, string pin, string holder, decimal balance, string status){
+    public int AddUser(string login, string pin, string holder, decimal balance, string status){
+        int newAccountNumber = -1;
         using (MySqlConnection connection = GetConnection()){
             try{
                 connection.Open();
@@ -81,6 +80,7 @@ class Database
                      // Execute the query
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0){
+                        newAccountNumber = (int)cmd.LastInsertedId;
                         Console.WriteLine("User added successfully!");
                     }
                     else{
@@ -92,6 +92,7 @@ class Database
                 Console.WriteLine($"Error connecting to database: {ex.Message}");
             }
         }
+        return newAccountNumber;
     }
 
     public void WithdrawAmount(int accountNumber, decimal balance, decimal withdrawAmount){
@@ -258,5 +259,76 @@ class Database
             }
         }
     }
+    
+    public object[] GetAccountInfoFromNumber(int accountNumber){
+        object[] accountDetails = null;
 
+        using (MySqlConnection connection = GetConnection()){
+            try
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM user WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Create an object array with the number of columns
+                            accountDetails = new object[reader.FieldCount];
+
+                            for (int i = 0; i < reader.FieldCount; i++){
+                                accountDetails[i] = reader[i];
+                            }
+
+                            Console.WriteLine("Account details retrieved successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No account found with the given account number.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving account details: {ex.Message}");
+            }
+        }
+
+        return accountDetails;
+    }
+
+    public void UpdateAccountInfo(int accountNum, string newHolderName, string newStatus, string newLogin, string newPin){
+        using (MySqlConnection connection = GetConnection()){
+            try{
+                connection.Open();
+
+                string query = "UPDATE user SET Holder = @holder, Status = @status, Login = @login, Pin = @pin WHERE AccountNumber = @accountNumber";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection)){
+                    cmd.Parameters.AddWithValue("@holder", newHolderName);
+                    cmd.Parameters.AddWithValue("@status", newStatus);
+                    cmd.Parameters.AddWithValue("@login", newLogin);
+                    cmd.Parameters.AddWithValue("@pin", newPin);
+                    cmd.Parameters.AddWithValue("@accountNumber", accountNum);
+       
+
+                     // Execute the query
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0){
+                        Console.WriteLine("Account Info Updated!");
+                    }
+                    else{
+                        Console.WriteLine("Failed to update account information.");
+                    }           
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error connecting to database: {ex.Message}");
+            }
+        }
+    }
 }

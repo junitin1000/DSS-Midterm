@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj": {}
+    "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj": {
+    "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
         "projectName": "ATMSystem",
-        "projectPath": "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
+        "projectPath": "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
         "packagesPath": "C:\\Users\\Jonathan Golden\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\obj\\",
+        "outputPath": "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jonathan Golden\\AppData\\Roaming\\NuGet\\NuGet.Config"
