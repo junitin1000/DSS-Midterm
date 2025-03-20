@@ -1,8 +1,4 @@
-﻿using System;
-using System.Transactions;
-using Org.BouncyCastle.Security;
-
-class Program
+﻿class Program
 {
 
     static void Main()
