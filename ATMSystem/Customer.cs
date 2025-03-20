@@ -1,6 +1,3 @@
-using System.Dynamic;
-using Org.BouncyCastle.Asn1.X509;
-
 class Customer : User{
 
     private decimal Balance {get; set;}
