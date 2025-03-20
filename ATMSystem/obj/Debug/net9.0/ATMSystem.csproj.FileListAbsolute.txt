@@ -34,3 +34,5 @@ c:\Users\Jonathan Golden\Desktop\WPI Stuff\Super Senior Year\Spring Semester\Des
 c:\Users\Jonathan Golden\Desktop\WPI Stuff\Super Senior Year\Spring Semester\Design of Software Systems\Midterm\ATMSystem\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 c:\Users\Jonathan Golden\Desktop\WPI Stuff\Super Senior Year\Spring Semester\Design of Software Systems\Midterm\ATMSystem\obj\Debug\net9.0\ATMSystem.csproj.AssemblyReference.cache
 c:\Users\Jonathan Golden\Desktop\WPI Stuff\Super Senior Year\Spring Semester\Design of Software Systems\Midterm\ATMSystem\obj\Debug\net9.0\ATMSystem.csproj.Up2Date
+c:\Users\Jonathan Golden\Desktop\WPI Stuff\Super Senior Year\Spring Semester\Design of Software Systems\Midterm\ATMSystem\obj\Debug\net9.0\ATMSystem.sourcelink.json
+c:\Users\Jonathan Golden\Desktop\WPI Stuff\Super Senior Year\Spring Semester\Design of Software Systems\Midterm\ATMSystem\bin\Debug\net9.0\Ninject.dll

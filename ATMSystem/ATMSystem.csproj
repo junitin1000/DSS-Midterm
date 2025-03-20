@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.2.0" />
+    <PackageReference Include="Ninject" Version="3.3.6" />
   </ItemGroup>
 
 </Project>

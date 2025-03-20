@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fEfdf83/zMY=",
+  "dgSpecHash": "WMq84bXj070=",
   "success": true,
-  "projectFilePath": "c:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
+  "projectFilePath": "C:\\Users\\Jonathan Golden\\Desktop\\WPI Stuff\\Super Senior Year\\Spring Semester\\Design of Software Systems\\Midterm\\ATMSystem\\ATMSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\google.protobuf\\3.26.1\\google.protobuf.3.26.1.nupkg.sha512",
@@ -12,6 +12,7 @@
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\mysql.data\\9.2.0\\mysql.data.9.2.0.nupkg.sha512",
+    "C:\\Users\\Jonathan Golden\\.nuget\\packages\\ninject\\3.3.6\\ninject.3.3.6.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.1\\system.diagnostics.diagnosticsource.8.0.1.nupkg.sha512",
@@ -19,6 +20,8 @@
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
+    "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
+    "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.reflection.emit.lightweight\\4.3.0\\system.reflection.emit.lightweight.4.3.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\Jonathan Golden\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
